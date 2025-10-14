@@ -1,0 +1,9 @@
+{
+  "name": "Job Portal",
+  "short_name": "JobPortal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "A minimal manifest added to prevent 404s during dev",
+  "icons": []
+}
