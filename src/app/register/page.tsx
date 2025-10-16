@@ -55,7 +55,8 @@ const Registration: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    
+    console.log("Form data updated:", { ...formData, [name]: value });
+
     // Clear error when user starts typing
     if (errors[name as keyof RegistrationFormData]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
