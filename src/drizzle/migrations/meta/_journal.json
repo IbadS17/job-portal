@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1760697864471,
+      "tag": "0000_handy_cerebro",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1760731672881,
+      "tag": "0001_nosy_lightspeed",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1760731881305,
+      "tag": "0002_yielding_sunspot",
+      "breakpoints": true
+    }
+  ]
+}

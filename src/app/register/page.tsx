@@ -28,10 +28,11 @@ import {
   UserCircle,
 } from "lucide-react";
 import Link from "next/link";
+import { registerAction } from "./registerAction";
 
 interface RegistrationFormData {
   name: string;
-  username: string;
+  userName: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -41,7 +42,7 @@ interface RegistrationFormData {
 const Registration: React.FC = () => {
   const [formData, setFormData] = React.useState<RegistrationFormData>({
     name: "",
-    username: "",
+    userName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -71,7 +72,7 @@ const Registration: React.FC = () => {
     const newErrors: Partial<RegistrationFormData> = {};
 
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.username.trim()) newErrors.username = "Username is required";
+    if (!formData.userName.trim()) newErrors.userName = "Username is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Email is invalid";
@@ -85,11 +86,18 @@ const Registration: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const registerationData = {
+      name: formData.name.trim(),
+      userName: formData.userName.trim(),
+      email: formData.email.trim().toLowerCase(),
+      password: formData.password.trim(),
+      role: formData.role,
+    };
     if (validateForm()) {
-      console.log("Form submitted:", formData);
-      // Add your registration logic here
+      console.log("Form submitted:", registerationData);
+      await registerAction(registerationData);
     }
   };
 
@@ -149,7 +157,11 @@ const Registration: React.FC = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              // action={registerAction}
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
               {/* Role Selection */}
               <div className="space-y-2">
                 <Label htmlFor="role" className="text-sm font-medium">
@@ -200,25 +212,25 @@ const Registration: React.FC = () => {
 
               {/* Username */}
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-sm font-medium">
+                <Label htmlFor="userName" className="text-sm font-medium">
                   Username
                 </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <Input
-                    id="username"
-                    name="username"
+                    id="userName"
+                    name="userName"
                     type="text"
                     placeholder="johndoe"
-                    value={formData.username}
+                    value={formData.userName}
                     onChange={handleInputChange}
                     className={`pl-10 ${
-                      errors.username ? "border-red-500" : ""
+                      errors.userName ? "border-red-500" : ""
                     }`}
                   />
                 </div>
-                {errors.username && (
-                  <p className="text-red-500 text-xs mt-1">{errors.username}</p>
+                {errors.userName && (
+                  <p className="text-red-500 text-xs mt-1">{errors.userName}</p>
                 )}
               </div>
 
