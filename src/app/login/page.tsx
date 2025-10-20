@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Briefcase, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { loginUserAction } from "./loginAction";
+import { toast } from "sonner";
 
 interface LoginFormData {
   email: string;
@@ -65,17 +67,16 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const LoginData = {
+        email: formData.email.toLowerCase().trim(),
+        password: formData.password,
+      };
 
-    if (validateForm()) {
-      setIsLoading(true);
-      console.log("Login submitted:", formData);
-
-      // Simulate API call
-      setTimeout(() => {
-        setIsLoading(false);
-        // Add your login logic here
-      }, 1500);
-    }
+      const result = await loginUserAction(LoginData);
+      if (result.status === "SUCCESS") toast.success(result.message);
+      else toast.error(result.message);
+    } catch (error) {}
   };
 
   return (

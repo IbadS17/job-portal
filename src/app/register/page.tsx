@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { registerAction } from "./registerAction";
+import { toast } from "sonner";
 
 interface RegistrationFormData {
   name: string;
@@ -96,8 +97,9 @@ const Registration: React.FC = () => {
       role: formData.role,
     };
     if (validateForm()) {
-      console.log("Form submitted:", registerationData);
-      await registerAction(registerationData);
+      const result = await registerAction(registerationData);
+      if (result.status === "SUCCESS") toast.success(result.message);
+      else toast.error(result.message);
     }
   };
 
