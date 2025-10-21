@@ -74,12 +74,22 @@ const Registration: React.FC = () => {
 
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.userName.trim()) newErrors.userName = "Username is required";
+    else if (!/^[a-zA-Z0-9_-]+$/.test(formData.userName)) {
+      newErrors.userName =
+        "Username can only contain letters, numbers, hyphens, and underscores";
+    }
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Email is invalid";
     if (!formData.password) newErrors.password = "Password is required";
-    else if (formData.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters";
+    else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        formData.password
+      )
+    ) {
+      newErrors.password =
+        "Password must be at least 8 characters long, include uppercase, lowercase, number, and special character";
+    }
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match";
 

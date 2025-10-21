@@ -74,8 +74,8 @@ const LoginPage: React.FC = () => {
       };
 
       const result = await loginUserAction(LoginData);
-      if (result.status === "SUCCESS") toast.success(result.message);
-      else toast.error(result.message);
+      if (result && result.status === "SUCCESS") toast.success(result.message);
+      else toast.error(result?.message);
     } catch (error) {}
   };
 
